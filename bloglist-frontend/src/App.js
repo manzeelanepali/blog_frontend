@@ -3,19 +3,16 @@ import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [message, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
   console.log("blogservices", blogs);
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
@@ -24,21 +21,16 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, []);
-
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
       const user = await loginService.login({
         username,
         password,
       });
-
       //  user ahunu sath we will call the setToken
-
       blogService.setToken(user.token);
       setUser(user);
-
       // browser ko api ho . loggedBlogapp user bhanee key ma as a key value ko form ma token and other info like name and username ahucha.
       // json.stringify  . user actually object ko format ma ahucha so this will convert the text into string
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
@@ -51,7 +43,6 @@ const App = () => {
       }, 5000);
     }
   };
-
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -76,8 +67,6 @@ const App = () => {
     </form>
   );
 
-  // function logout removes the useer from the local storage
-
   const logout = () => {
     window.localStorage.removeItem("loggedBlogappUser");
     setUser(null);
@@ -86,7 +75,6 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-
       <Notification message={message} />
       {user === null ? (
         <>
@@ -96,11 +84,11 @@ const App = () => {
       ) : (
         <>
           {/* <h2>{user.name} logged-in</h2> */}
-          {/*  span for the inline alignment  */}
+          {/* <h2>{user.name} logged-in</h2> */}
           <span>{user.name} logged-in</span>
-          {/*  made a button that has onclick property to logout . it has a function logout in it  */}
-          <button onClick={logout}>logout</button>
-          <span>{user.name} logged-out</span>
+          <>
+            <button onClick={logout}>logout</button>
+          </>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
