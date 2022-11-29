@@ -76,6 +76,8 @@ const App = () => {
     </form>
   );
 
+  // function logout removes the useer from the local storage
+
   const logout = () => {
     window.localStorage.removeItem("loggedBlogappUser");
     setUser(null);
@@ -94,7 +96,9 @@ const App = () => {
       ) : (
         <>
           {/* <h2>{user.name} logged-in</h2> */}
+          {/*  span for the inline alignment  */}
           <span>{user.name} logged-in</span>
+          {/*  made a button that has onclick property to logout . it has a function logout in it  */}
           <button onClick={logout}>logout</button>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
