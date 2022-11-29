@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
-import blogService from "./services/blogs";
 import Notification from "./components/Notification";
+import blogService from "./services/blogs";
 import loginService from "./services/login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [message, setErrorMessage] = useState("");
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -15,6 +14,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
+  console.log("blogservices", blogs);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -28,12 +28,13 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (exception) {
-      setErrorMessage("Wrong credentials");
+      setErrorMessage("Wrong Credentials");
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
     }
   };
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -55,22 +56,22 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-
-      <button type="submit">login</button>
     </form>
   );
 
   return (
     <div>
+      <h2>blogs</h2>
+
       <Notification message={message} />
       {user === null ? (
         <>
-          <h2>Log into application</h2>
+          <h2>log into application</h2>
           {loginForm()}
         </>
       ) : (
         <>
-          <h2>{user.name}logged in</h2>
+          <h2>{user.name} logged-in</h2>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
@@ -79,5 +80,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
