@@ -38,6 +38,9 @@ const App = () => {
 
       blogService.setToken(user.token);
       setUser(user);
+
+      // browser ko api ho . loggedBlogapp user bhanee key ma as a key value ko form ma token and other info like name and username ahucha.
+      // json.stringify  . user actually object ko format ma ahucha so this will convert the text into string
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
       setUsername("");
       setPassword("");
