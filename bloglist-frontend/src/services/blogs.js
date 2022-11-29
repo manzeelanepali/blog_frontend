@@ -1,6 +1,9 @@
 import axios from "axios";
 const baseUrl = "/api/blogs";
+//  first of all token is null
 let token = null;
+
+// and then we will use set token
 const setToken = (newToken) => {
   token = `barear ${newToken}`;
 };
@@ -10,7 +13,7 @@ const getAll = async () => {
 
   return response.data;
 };
-
+//  changed it for the suthorizantion header
 const create = (newObject) => {
   const config = {
     headers: { Authorization: token },
