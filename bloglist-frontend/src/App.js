@@ -100,6 +100,7 @@ const App = () => {
           <span>{user.name} logged-in</span>
           {/*  made a button that has onclick property to logout . it has a function logout in it  */}
           <button onClick={logout}>logout</button>
+          <span>{user.name} logged-out</span>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
