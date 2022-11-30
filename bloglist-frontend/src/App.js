@@ -6,7 +6,7 @@ import loginService from "./services/login";
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   // const [message, setErrorMessage] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ message: null, type: null });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -45,8 +45,9 @@ const App = () => {
       setPassword("");
     } catch (exception) {
       // setErrorMessage("Wrong Credentials");
-      setMessage(exception.response.data.error);
+      setMessage({ message: exception.response.data.error, type: "error" });
       setTimeout(() => {
+        setMessage({ message: null, type: null });
         setMessage(null);
       }, 5000);
     }
@@ -95,16 +96,19 @@ const App = () => {
       setTitle("");
       setAuthor("");
       setUrl("");
-      setMessage(
-        `a new blog ${createdBlog.title}added by ${createdBlog.author}`
-      );
+      setMessage({
+        message: `a new blog ${createdBlog.title}added by ${createdBlog.author}`,
+        type: "update",
+      });
       setTimeout(() => {
+        setMessage({ message: null, type: null });
         setMessage(null);
       }, 5000);
     } catch (exception) {
-      setMessage(exception.response.data.error);
+      setMessage({ message: exception.response.data.error, type: "error" });
     }
     setTimeout(() => {
+      setMessage({ message: null, type: null });
       setMessage(null);
     }, 5000);
   };
@@ -151,7 +155,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <Notification message={message} />
+      <Notification message={message?.message} type={message?.type} />
       {user === null ? (
         <>
           <h2>log into application</h2>
