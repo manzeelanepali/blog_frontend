@@ -15,7 +15,7 @@ const getAll = async () => {
 };
 //  changed it for the suthorizantion header
 const create = (newObject) => {
-  console.log("the created newobj", newObject);
+  // console.log("the created newobj", newObject);
   const config = {
     headers: { Authorization: token },
   };

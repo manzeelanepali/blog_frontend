@@ -5,7 +5,8 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [message, setErrorMessage] = useState("");
+  // const [message, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -18,6 +19,7 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
   // console.log("blogservices", blogs);
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
@@ -26,6 +28,7 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, []);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -33,21 +36,22 @@ const App = () => {
         username,
         password,
       });
-      //  user ahunu sath we will call the setToken
+
       blogService.setToken(user.token);
       setUser(user);
-      // browser ko api ho . loggedBlogapp user bhanee key ma as a key value ko form ma token and other info like name and username ahucha.
-      // json.stringify  . user actually object ko format ma ahucha so this will convert the text into string
+
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
       setUsername("");
       setPassword("");
     } catch (exception) {
-      setErrorMessage("Wrong Credentials");
+      // setErrorMessage("Wrong Credentials");
+      setMessage(exception.response.data.error);
       setTimeout(() => {
-        setErrorMessage(null);
+        setMessage(null);
       }, 5000);
     }
   };
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -79,19 +83,31 @@ const App = () => {
 
   const handleBlogcreate = async (event) => {
     event.preventDefault();
-    const newBlog = {
-      title,
-      author,
-      url,
-    };
-    console.log("the handeblog entered and newblog", newBlog);
-    const createdBlog = await blogService.create(newBlog);
-    setBlogs(blogs.concat(createdBlog));
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+    try {
+      const newBlog = {
+        title,
+        author,
+        url,
+      };
+      // console.log("the handeblog entered and newblog", newBlog);
+      const createdBlog = await blogService.create(newBlog);
+      setBlogs(blogs.concat(createdBlog));
+      setTitle("");
+      setAuthor("");
+      setUrl("");
+      setMessage(
+        `a new blog ${createdBlog.title}added by ${createdBlog.author}`
+      );
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    } catch (exception) {
+      setMessage(exception.response.data.error);
+    }
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
   };
-
   const blogForm = () => {
     return (
       <form onSubmit={handleBlogcreate}>
