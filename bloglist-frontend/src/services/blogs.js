@@ -5,7 +5,7 @@ let token = null;
 
 // and then we will use set token
 const setToken = (newToken) => {
-  token = `barear ${newToken}`;
+  token = ` bearer ${newToken}`;
 };
 
 const getAll = async () => {
@@ -15,6 +15,7 @@ const getAll = async () => {
 };
 //  changed it for the suthorizantion header
 const create = (newObject) => {
+  console.log("the created newobj", newObject);
   const config = {
     headers: { Authorization: token },
   };
