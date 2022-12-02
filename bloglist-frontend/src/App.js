@@ -155,7 +155,7 @@ const App = () => {
 
   return (
     <div>
-      <Togglable>This is coming from App.js </Togglable>
+      <Togglable buttonLabel="show Me">This is coming from App.js </Togglable>
       <h2>blogs</h2>
       <Notification message={message?.message} type={message?.type} />
       {user === null ? (
@@ -185,7 +185,6 @@ const App = () => {
           ))}
         </>
       )}
-      <Togglable />
     </div>
   );
 };
