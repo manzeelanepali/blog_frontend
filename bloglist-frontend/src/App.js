@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
+import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 const App = () => {
@@ -154,6 +155,7 @@ const App = () => {
 
   return (
     <div>
+      <Togglable>This is coming from App.js </Togglable>
       <h2>blogs</h2>
       <Notification message={message?.message} type={message?.type} />
       {user === null ? (
@@ -183,6 +185,7 @@ const App = () => {
           ))}
         </>
       )}
+      <Togglable />
     </div>
   );
 };
