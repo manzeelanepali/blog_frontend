@@ -5,6 +5,7 @@ import Togglable from "./components/Togglable";
 
 import blogService from "./services/blogs";
 import LoginForm from "./components/LoginForm";
+import BlogForm from "./components/BlogForm";
 
 import loginService from "./services/login";
 const App = () => {
@@ -103,43 +104,26 @@ const App = () => {
       setMessage(null);
     }, 5000);
   };
+
   const blogForm = () => {
     return (
-      <form onSubmit={handleBlogcreate}>
-        <div>
-          title:{""}
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
-          />
-        </div>
-        <div>
-          author:{""}
-          <input
-            type="text"
-            name="author"
-            value={author}
-            onChange={(event) => {
-              setAuthor(event.target.value);
-            }}
-          />
-        </div>
-        <div>
-          url:{""}
-          <input
-            type="text"
-            name="url"
-            value={url}
-            onChange={(event) => {
-              setUrl(event.target.value);
-            }}
-          />
-        </div>
-      </form>
+      <Togglable buttonLabel="new blog">
+        <BlogForm
+          title={title}
+          author={author}
+          url={url}
+          handleTitleChange={(event) => {
+            setTitle(event.target.value);
+          }}
+          handleAuthorChange={(event) => {
+            setAuthor(event.target.value);
+          }}
+          handleUrlChange={(event) => {
+            setUrl(event.target.value);
+          }}
+          createBlog={handleBlogcreate}
+        />
+      </Togglable>
     );
   };
 
