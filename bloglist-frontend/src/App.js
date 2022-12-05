@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import Togglable from "./components/Togglable";
@@ -8,6 +8,7 @@ import BlogForm from "./components/BlogForm";
 import loginService from "./services/login";
 
 const App = () => {
+  const blogFormRef = useRef();
   const [blogs, setBlogs] = useState([]);
   const [message, setMessage] = useState({ message: null, type: null });
   const [username, setUsername] = useState("");
@@ -72,12 +73,13 @@ const App = () => {
   const handleBlogCreate = (blogObject) => {
     blogService.create(blogObject).then((returnedBlog) => {
       setBlogs(blogs.concat(returnedBlog));
+      blogFormRef.current.toggleVisibility();
     });
   };
 
   const blogForm = () => {
     return (
-      <Togglable buttonLabel="new blog">
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm createBlog={handleBlogCreate} />
       </Togglable>
     );
