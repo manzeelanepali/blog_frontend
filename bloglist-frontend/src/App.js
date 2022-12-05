@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import Togglable from "./components/Togglable";
+
 import blogService from "./services/blogs";
+import LoginForm from "./components/LoginForm";
+
 import loginService from "./services/login";
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -53,29 +56,16 @@ const App = () => {
       }, 5000);
     }
   };
-
   const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
+    <Togglable buttonLabel="login">
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target }) => setUsername(target.value)}
+        handlePasswordChange={({ target }) => setPassword(target.value)}
+        handleSubmit={handleLogin}
+      />
+    </Togglable>
   );
 
   const logout = () => {
@@ -155,7 +145,6 @@ const App = () => {
 
   return (
     <div>
-      <Togglable buttonLabel="show Me">This is coming from App.js</Togglable>
       <h2>blogs</h2>
       <Notification message={message?.message} type={message?.type} />
       {user === null ? (
@@ -165,15 +154,12 @@ const App = () => {
         </>
       ) : (
         <>
-          {/* <h2>{user.name} logged-in</h2> */}
-          {/* <h2>{user.name} logged-in</h2> */}
           <span>{user.name} logged-in</span>
           <>
             <button onClick={logout}>logout</button>
           </>
 
           <h1>Create New </h1>
-
           {blogForm()}
 
           <button type="submit" onClick={handleBlogcreate}>
