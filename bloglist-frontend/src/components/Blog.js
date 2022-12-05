@@ -29,6 +29,11 @@ const Blog = ({ blog, setBlogs, blogs }) => {
     raisedLike(id, blog.likes + 1);
   };
 
+  const deletedBlog = async (id) => {
+    await blogService.remove(id);
+    setBlogs(blogs.filter((blog) => blog.id !== id));
+  };
+
   return (
     <div style={blogStyle}>
       {!display ? (
@@ -48,8 +53,26 @@ const Blog = ({ blog, setBlogs, blogs }) => {
             <button onClick={() => increasedLikes(blog.id)}>like</button>
           </div>
           <div>{blog.author}</div>
+          <div>
+            <button
+              style={{ backgroudColor: "red" }}
+              onClick={() => {
+                const del = window.confirm(
+                  `Remove blog ${blog.title} by ${blog.author}`
+                );
+                if (del === false) {
+                  return blogs;
+                } else {
+                  deletedBlog(blog.id);
+                }
+              }}
+            >
+              remove
+            </button>
+          </div>
         </div>
       )}
+      ;
     </div>
   );
 };
