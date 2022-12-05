@@ -90,7 +90,7 @@ const App = () => {
       </Togglable>
     );
   };
-
+  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
   return (
     <div>
       <h2>blogs</h2>
@@ -110,7 +110,7 @@ const App = () => {
           <h1>Create New </h1>
           {blogForm()}
 
-          {blogs.map((blog) => (
+          {sortedBlogs.map((blog) => (
             <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
             // <Blog key={blog.id} blog={blog} />
           ))}
