@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Blog from "./Blog";
 
 test("renders blogs", () => {
@@ -19,4 +20,34 @@ test("renders blogs", () => {
   );
 
   expect(div).toBeDefined();
+});
+
+test("clicking the button calls event handler once", async () => {
+  const blog = {
+    title: " its going to be great",
+    author: "sonika ",
+    url: "j payo tei",
+    likes: 0,
+    user: {
+      username: "prem",
+      name: "prem",
+      id: "fmndmn",
+    },
+  };
+
+  const User = {
+    username: "prem",
+    name: "prem",
+    id: "fmndmn",
+  };
+
+  const { container } = render(<Blog blog={blog} user={User} />);
+  const user = userEvent.setup();
+  const button = container.querySelector(".view");
+  await user.click(button);
+  const url = container.querySelector(".url");
+  const likes = container.querySelector(".likes");
+
+  expect(url).toHaveTextContent("j payo tei");
+  expect(likes).toHaveTextContent("0");
 });

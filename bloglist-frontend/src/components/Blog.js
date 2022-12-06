@@ -41,8 +41,7 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           <li className="blog">
             {blog.title}
             {blog.author}
-
-            <button onClick={showToggle}>view</button>
+            <button className="view" onClick={showToggle} />
           </li>
         </div>
       ) : (
@@ -51,9 +50,10 @@ const Blog = ({ blog, setBlogs, blogs }) => {
             {blog.title}
             <button onClick={showToggle}>hide</button>
           </div>
-          <div>{blog.url}</div>
-          <div>
-            likes: {blog.likes}{" "}
+          <div className="url">{blog.url}</div>
+
+          <div className="likes">
+            likes: {blog.likes}
             <button onClick={() => increasedLikes(blog.id)}>like</button>
           </div>
           <div>{blog.author}</div>
