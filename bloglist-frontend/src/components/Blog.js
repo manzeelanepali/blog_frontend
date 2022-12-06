@@ -38,8 +38,12 @@ const Blog = ({ blog, setBlogs, blogs }) => {
     <div style={blogStyle}>
       {!display ? (
         <div>
-          {blog.title}
-          <button onClick={showToggle}>view</button>
+          <li className="blog">
+            {blog.title}
+            {blog.author}
+
+            <button onClick={showToggle}>view</button>
+          </li>
         </div>
       ) : (
         <div>
