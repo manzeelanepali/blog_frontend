@@ -15,12 +15,14 @@ const Blog = ({ blog, setBlogs, blogs }) => {
   };
   const raisedLike = async (id, addedlikes) => {
     const updatedBlog = blogs.find((blogs) => blogs.id === id);
+
     const newBlog = {
       likes: addedlikes,
       author: updatedBlog.author,
       title: updatedBlog.title,
       url: updatedBlog.url,
     };
+
     const response = await blogService.update(id, newBlog);
     setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
   };
@@ -30,9 +32,12 @@ const Blog = ({ blog, setBlogs, blogs }) => {
   };
 
   const deletedBlog = async (id) => {
+    // console.log("de", deletedBlog);
     await blogService.remove(id);
     setBlogs(blogs.filter((blog) => blog.id !== id));
   };
+
+  // console.log("deleted blog", deletedBlog);
 
   return (
     <div style={blogStyle}>
@@ -41,7 +46,8 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           <li className="blog">
             {blog.title}
             {blog.author}
-            <button className="view" onClick={showToggle} />
+            <button onClick={showToggle}>view</button>
+            {/* <button className="view" onClick={showToggle} /> */}
           </li>
         </div>
       ) : (
@@ -55,6 +61,9 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           <div className="likes">
             likes: {blog.likes}
             <button onClick={() => increasedLikes(blog.id)}>like</button>
+            {/* <button id="likeButton" onClick={() => increasedLikes(blog.id)}> */}
+            {/* like
+            </button> */}
           </div>
           <div>{blog.author}</div>
           <div>
