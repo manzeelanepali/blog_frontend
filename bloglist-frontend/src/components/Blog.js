@@ -32,10 +32,13 @@ const Blog = ({ blog, setBlogs, blogs }) => {
   };
 
   const deletedBlog = async (id) => {
-    // console.log("de", deletedBlog);
+    // console.log("de", id);
+
     await blogService.remove(id);
+
     setBlogs(blogs.filter((blog) => blog.id !== id));
   };
+  // console.log(blog.id, "comparison");
 
   // console.log("deleted blog", deletedBlog);
 
@@ -46,7 +49,9 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           <li className="blog">
             {blog.title}
             {blog.author}
-            <button onClick={showToggle}>view</button>
+            <button className="view" onClick={showToggle}>
+              view
+            </button>
             {/* <button className="view" onClick={showToggle} /> */}
           </li>
         </div>
