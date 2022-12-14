@@ -6,4 +6,18 @@ describe("Blog app", function () {
   it("login form can be opened", function () {
     cy.contains("login").click();
   });
+
+  describe("Login", function () {
+    it("succeeds with correct credentials", function () {
+      cy.contains("login").click();
+      cy.get("input:first").type("anu");
+      cy.get("input:last").type("anu");
+    });
+
+    it("fails with wrong credentials", function () {
+      cy.contains("login").click();
+      cy.get("input:first").type("anu");
+      cy.get("input:last").type("sanu");
+    });
+  });
 });
