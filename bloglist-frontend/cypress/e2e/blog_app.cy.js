@@ -5,7 +5,5 @@ describe("Blog app", function () {
   });
   it("login form can be opened", function () {
     cy.contains("login").click();
-    cy.get("input:first").type("anu");
-    cy.get("input:last").type("anu");
   });
 });
