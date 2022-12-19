@@ -1,6 +1,13 @@
+/* eslint-disable no-undef */
 describe("Blog app", function () {
   beforeEach(function () {
     cy.request("POST", "http://localhost:3003/api/testing/reset");
+    const user = {
+      name: "manjila",
+      username: "manjila",
+      password: "manjila",
+    };
+    cy.request("POST", "http://localhost:3003/api/users/", user);
     cy.visit("http://localhost:3000");
   });
 
@@ -8,34 +15,33 @@ describe("Blog app", function () {
     cy.contains("login").click();
   });
 
-  it.only("login fails with wrong password", function () {
+  it("login fails with wrong password", function () {
     cy.contains("login").click();
     cy.get("#username").type("iran");
-    cy.get("#password").type("kiran");
+    cy.get("#password").type("siran");
     cy.get("#login-button").click();
   });
 
   it("user can log in", function () {
     cy.contains("login").click();
-    cy.get("#username").type("kiran");
-    cy.get("#password").type("kiran");
+    cy.get("#username").type("manjila");
+    cy.get("#password").type("manjila");
     cy.get("#login-button").click();
   });
+
+  // describe("when logged in", function () {
+  //   beforeEach(function () {
+  //     cy.contains("login").click();
+  //     cy.get("input:first").type("manjila");
+  //     cy.get("input:last").type("manjila");
+  //     cy.get("#login-button").click();
+  //   });
+
+  //   it("a blog can be created", function () {
+  //     cy.contains("create").click();
+  //     cy.get("input").type("a blog created by cypress");
+  //     cy.contains("save").click();
+  //     cy.contains("a blog created by cypress");
+  //   });
+  // });
 });
-
-//   describe("when logged in", function () {
-//     beforeEach(function () {
-//       cy.contains("login").click();
-//       cy.get("input:first").type("kiran");
-//       cy.get("input:last").type("kiran");
-//       cy.get("#login-button").click();
-//     });
-
-//     it("a blog can be created", function () {
-//       cy.contains("new blog").click();
-//       cy.get("input").type("a note created by cypress");
-//       cy.contains("save").click();
-//       cy.contains("a note created by cypress");
-//     });
-//   });
-// });
