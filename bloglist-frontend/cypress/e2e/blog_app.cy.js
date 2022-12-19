@@ -29,19 +29,23 @@ describe("Blog app", function () {
     cy.get("#login-button").click();
   });
 
-  // describe("when logged in", function () {
-  //   beforeEach(function () {
-  //     cy.contains("login").click();
-  //     cy.get("input:first").type("manjila");
-  //     cy.get("input:last").type("manjila");
-  //     cy.get("#login-button").click();
-  //   });
+  describe("when logged in", function () {
+    beforeEach(function () {
+      cy.contains("login").click();
+      cy.get("input:first").type("manjila");
+      cy.get("input:last").type("manjila");
+      cy.get("#login-button").click();
+    });
 
-  //   it("a blog can be created", function () {
-  //     cy.contains("create").click();
-  //     cy.get("input").type("a blog created by cypress");
-  //     cy.contains("save").click();
-  //     cy.contains("a blog created by cypress");
-  //   });
-  // });
+    it("a blog can be created", function () {
+      cy.contains("new blog").click();
+
+      cy.get("#title").type("new story created by cypress");
+      cy.get("#author").type("manjila");
+      cy.get("#url").type("hello");
+      cy.get("#button-type").click();
+
+      cy.contains("new story created by cypress");
+    });
+  });
 });
