@@ -5,6 +5,7 @@ const BlogForm = ({ createBlog }) => {
   const [url, setUrl] = useState("");
 
   const handleBlogCreate = (event) => {
+    event.preventDefault();
     createBlog({
       title,
       author,
