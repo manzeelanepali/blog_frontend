@@ -44,9 +44,9 @@ describe("Blog app", function () {
       cy.get("#author").type("manjila");
       cy.get("#url").type("hello");
       cy.get("#button-type").click();
-
       cy.contains("new story created by cypress");
     });
+
     it(" a user can like the blog", function () {
       cy.contains("new blog").click();
       cy.get("#title").type("new story created by cypress");
