@@ -91,7 +91,6 @@ const Blog = ({ blog, setBlogs, user, raisedLike, blogs }) => {
           </div>
         </div>
       )}
-      ;
     </div>
   );
 };
