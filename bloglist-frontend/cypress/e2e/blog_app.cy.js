@@ -28,6 +28,8 @@ describe("Blog app", function () {
     cy.get("#username").type("iran");
     cy.get("#password").type("siran");
     cy.get("#login-button").click();
+
+    cy.contains("invalid username or password");
   });
 
   it("user can log in", function () {
@@ -79,7 +81,7 @@ describe("Blog app", function () {
       cy.contains("a blog created by cypress").should("not.exist");
     });
 
-    it.only("user who hasnot created the blog cannot delete it", function () {
+    it("user who hasnot created the blog cannot delete it", function () {
       cy.contains("new blog").click();
 
       cy.get("#title").type("new story created by cypress");
