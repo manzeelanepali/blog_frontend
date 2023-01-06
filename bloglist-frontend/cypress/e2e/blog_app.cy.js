@@ -7,7 +7,15 @@ describe("Blog app", function () {
       username: "manjila",
       password: "manjila",
     };
+
+    const user3 = {
+      name: "sonika ",
+      username: "sonika",
+      password: "sonika",
+    };
     cy.request("POST", "http://localhost:3003/api/users/", user);
+
+    cy.request("POST", "http://localhost:3003/api/users/", user3);
     cy.visit("http://localhost:3000");
   });
 
@@ -71,7 +79,27 @@ describe("Blog app", function () {
       cy.contains("a blog created by cypress").should("not.exist");
     });
 
-    it.only("blogs are arraanged according to the likes", function () {
+    it.only("user who hasnot created the blog cannot delete it", function () {
+      cy.contains("new blog").click();
+
+      cy.get("#title").type("new story created by cypress");
+      cy.get("#author").type("manjila");
+      cy.get("#url").type("hello");
+      cy.get("#button-type").click();
+      cy.contains("new story created by cypress");
+      cy.contains("logout").click();
+
+      cy.contains("login").click();
+      cy.get("#username").type("sonika");
+      cy.get("#password").type("sonika");
+      cy.get("#login-button").click();
+
+      cy.contains("view").click();
+      cy.contains("remove").click();
+      cy.contains("new story created by cypress").should("exist");
+    });
+
+    it("blogs are arraanged according to the likes", function () {
       cy.contains("new blog").click();
       cy.get("#title").type("new story created by cypress");
       cy.get("#author").type("manjila");
